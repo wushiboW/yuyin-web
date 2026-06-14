@@ -13,6 +13,15 @@ dist-ssr/
 # OMC (Oh My Claude) - local session state
 .omc/
 
+# Claude Code local config + auto-handoff logs
+.claude/
+
+# Vite cache
+.vite/
+
+# Archived docs (kept locally for reference, not part of source tree)
+docs-archive/
+
 # Editor
 .vscode/
 .idea/

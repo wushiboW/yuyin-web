@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Avatar } from '@components/Avatar';
 import { useUserStore } from '@stores/userStore';
@@ -13,29 +14,67 @@ interface DesktopLayoutProps {
  */
 export function DesktopLayout({ children }: DesktopLayoutProps) {
   const location = useLocation();
-  const { isLoggedIn } = useUserStore();
-  const { isAtTop, isTransparent, isDark, toggleTheme } = useNavbar();
+  const { user, isLoggedIn, logout } = useUserStore();
+  const { isAtTop, isDark, toggleTheme } = useNavbar();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // 判断当前页面是否有深色hero背景需要透明导航
+  // 空山物语(商品列表)页面没有深色hero，需要始终显示导航背景
+  const shouldBeTransparentAllowed = location.pathname === '/';
+  const shouldBeTransparent = isAtTop && shouldBeTransparentAllowed;
+  // Unified dark mode flag to reduce repeated conditionals
+  const isDarkMode = shouldBeTransparent || isDark;
 
   const navItems = [
     { path: '/', label: '推荐' },
     { path: '/product', label: '空山物语' },
-    { path: '/cart', label: '怦然心动' },
-    { path: '/about', label: '晓屿识音' },
+    { path: '/about', label: '怦然心动' },
+    { path: '/brand', label: '晓屿识音' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
-  // 导航栏文字颜色 - 透明模式用白色，非透明模式根据主题适配
-  const navTextColor = isTransparent ? 'text-white/60' : 'text-ink-black dark:text-white/60';
+  // Single source for nav colors
+  const navTextColor = isDarkMode ? 'text-white' : 'text-ink-black';
+  const iconColor = isDarkMode ? 'text-white' : 'text-ink-black';
   const navTextHoverColor = 'hover:text-[#C9A962]';
   const navActiveColor = 'text-[#C9A962]';
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    setIsDropdownOpen(false);
+
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isDropdownOpen) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isDropdownOpen]);
 
   return (
     <div className="min-h-screen bg-moon-white dark:bg-ink-black">
       {/* Header - 全宽导航栏 */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 w-full h-16 transition-all duration-500 ${
-          isTransparent
+          shouldBeTransparent
             ? 'bg-transparent backdrop-blur-none'
             : 'bg-moon-white/30 dark:bg-ink-black/30 backdrop-blur-xl'
         }`}
@@ -87,7 +126,7 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
           >
             {/* 搜索图标 */}
             <button
-              className={`p-3 transition-all duration-300 rounded-full ${navTextColor} ${navTextHoverColor}`}
+              className={`p-3 transition-all duration-300 rounded-full ${iconColor} ${navTextHoverColor}`}
               title="搜索"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,16 +135,112 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
             </button>
 
             {/* 分隔线 */}
-            <div className={`w-px h-5 mx-1 ${isTransparent ? 'bg-white/20' : 'bg-ink-black/20 dark:bg-white/20'}`} />
+            <div className={`w-px h-5 mx-1 ${shouldBeTransparent ? 'bg-white/20' : 'bg-ink-black/20 dark:bg-white/20'}`} />
 
             {/* 登录项或用户头像 */}
-            {isLoggedIn ? (
-              <Link
-                to="/user"
-                className="flex items-center p-1 transition-all duration-300 rounded-full hover:bg-white/10"
+            {isLoggedIn && user ? (
+              <div
+                className="relative"
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onMouseLeave={() => setIsDropdownOpen(false)}
               >
-                <Avatar size="sm" />
-              </Link>
+                <button
+                  className="flex items-center p-1 transition-all duration-300 rounded-full hover:bg-white/10"
+                  aria-label="用户菜单"
+                >
+                  {user.avatar ? (
+                    <img
+                      src={user.avatar}
+                      alt={user.nickname || '用户'}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <Avatar size="sm" />
+                  )}
+                </button>
+
+                {/* 下拉菜单 */}
+                {isDropdownOpen && (
+                  <div
+                    className={`absolute right-0 top-full mt-2 w-52 py-2 rounded-xl shadow-xl border transition-all duration-200 ${
+                      isDarkMode
+                        ? 'bg-ink-black/95 backdrop-blur-xl border-white/10 text-white'
+                        : 'bg-moon-white/95 backdrop-blur-xl border-light-gray/30 text-ink-black'
+                    }`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {/* 用户信息 */}
+                    <div className={`px-4 py-3 border-b ${isDarkMode ? 'border-white/10' : 'border-light-gray/20'}`}>
+                      <p className="text-sm font-medium truncate">
+                        {user.nickname || user.phone || '用户'}
+                      </p>
+                      <p className="text-xs text-white/40 dark:text-ink-black/50 mt-0.5 truncate">
+                        {user.phone || user.email || ''}
+                      </p>
+                    </div>
+
+                    <Link
+                      to="/user"
+                      className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-200 ${
+                        isDarkMode
+                          ? 'hover:bg-white/10'
+                          : 'hover:bg-[#C9A962]/10 hover:text-[#C9A962]'
+                      }`}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      用户中心
+                    </Link>
+                    <Link
+                      to="/user/assets"
+                      className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-200 ${
+                        isDarkMode
+                          ? 'hover:bg-white/10'
+                          : 'hover:bg-[#C9A962]/10 hover:text-[#C9A962]'
+                      }`}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 10h18M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                      账户资产
+                    </Link>
+                    <Link
+                      to="/user/orders"
+                      className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-200 ${
+                        isDarkMode
+                          ? 'hover:bg-white/10'
+                          : 'hover:bg-[#C9A962]/10 hover:text-[#C9A962]'
+                      }`}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                      采购清单
+                    </Link>
+
+                    <div className={`my-1 mx-3 h-px ${isDarkMode ? 'bg-white/10' : 'bg-light-gray/30'}`} />
+
+                    <button
+                      onClick={handleLogout}
+                      disabled={isLoggingOut}
+                      className={`flex items-center gap-3 w-full text-left px-4 py-2.5 text-sm transition-colors duration-200 ${
+                        isDarkMode
+                          ? 'hover:bg-white/10 text-white/70'
+                          : 'hover:bg-red-50 text-red-600'
+                      }`}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      {isLoggingOut ? '退出中...' : '退出登录'}
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link
                 to="/login"
@@ -120,7 +255,7 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
 
             {/* 语言切换 */}
             <button
-              className={`p-3 transition-all duration-300 rounded-full ${navTextColor} ${navTextHoverColor}`}
+              className={`p-3 transition-all duration-300 rounded-full ${iconColor} ${navTextHoverColor}`}
               title="语言切换"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +266,7 @@ export function DesktopLayout({ children }: DesktopLayoutProps) {
             {/* 主题切换 */}
             <button
               onClick={toggleTheme}
-              className={`p-3 transition-all duration-300 rounded-full ${navTextColor} ${navTextHoverColor}`}
+              className={`p-3 transition-all duration-300 rounded-full ${iconColor} ${navTextHoverColor}`}
               title={isDark ? '切换浅色模式' : '切换深色模式'}
             >
               {isDark ? (

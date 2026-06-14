@@ -95,10 +95,18 @@ const categories = [
  * 精选商品数据
  */
 const featuredProducts = [
-  { id: 1, name: '云逸沙发', price: 12800, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80', category: '家居' },
-  { id: 2, name: '静谧长椅', price: 6800, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80', category: '家居' },
-  { id: 3, name: '竹韵茶几', price: 4200, image: 'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=800&q=80', category: '家居' },
-  { id: 4, name: '时光书架', price: 8800, image: 'https://images.unsplash.com/photo-1594620302200-9a762244a156?w=800&q=80', category: '家居' },
+  { id: 1, name: '云逸沙发', price: 12800, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+  { id: 2, name: '静谧长椅', price: 6800, image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80' },
+  { id: 3, name: '竹韵茶几', price: 4200, image: 'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=800&q=80' },
+  { id: 4, name: '时光书架', price: 8800, image: 'https://images.unsplash.com/photo-1594620302200-9a762244a156?w=800&q=80' },
+  { id: 5, name: '悠然屏风', price: 5600, image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80' },
+  { id: 6, name: '禅意花瓶', price: 1200, image: 'https://images.unsplash.com/photo-1602164925666-21415a2dd1b7?w=800&q=80' },
+  { id: 7, name: '木语边柜', price: 7500, image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80' },
+  { id: 8, name: '雅致落地灯', price: 2800, image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80' },
+  { id: 9, name: '墨染书桌', price: 9200, image: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&q=80' },
+  { id: 10, name: '素雅床头柜', price: 3800, image: 'https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=800&q=80' },
+  { id: 11, name: '编织餐椅', price: 2400, image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=800&q=80' },
+  { id: 12, name: '极简茶具', price: 1800, image: 'https://images.unsplash.com/photo-1577956117901-4c7c5af60c7c?w=800&q=80' },
 ];
 
 function formatPrice(price: number): string {
@@ -342,30 +350,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 精选分类 - 全宽铺满 ===== */}
+      {/* ===== 精选分类 - 宽幅沉浸式分类展示 ===== */}
       <section
         ref={categoriesSection.ref}
-        className={`w-full py-24 sm:py-28 md:py-32 lg:py-40 bg-moon-white dark:bg-ink-black transition-all duration-700 ease-out ${categoriesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+        className={`w-full py-28 sm:py-32 md:py-40 lg:py-48 xl:py-56 bg-moon-white dark:bg-ink-black transition-all duration-700 ease-out ${categoriesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       >
-        <div className="w-full max-w-[1600px] mx-auto px-8 sm:px-12 md:px-16 lg:px-20">
-          <div className="text-center mb-16 sm:mb-20 md:mb-24">
-            <p className="text-paper-brown dark:text-gold-sand text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 sm:mb-5">Collections</p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl text-ink-black dark:text-moon-white" style={{ fontFamily: "'Noto Serif SC', serif" }}>精选分类</h2>
+        <div className="w-full max-w-[1800px] mx-auto px-10 sm:px-14 md:px-16 lg:px-20 xl:px-24">
+          <div className="text-center mb-20 sm:mb-24 md:mb-28 lg:mb-32">
+            <p className="text-paper-brown dark:text-gold-sand text-xs sm:text-sm tracking-[0.4em] uppercase mb-5 sm:mb-6">Collections</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-ink-black dark:text-moon-white" style={{ fontFamily: "'Noto Serif SC', serif" }}>精选分类</h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16">
             {categories.map((cat, i) => (
               <Link key={cat.slug} to={`/product?category=${cat.slug}`} className="group block">
                 <div
-                  className={`relative aspect-[4/5] overflow-hidden mb-4 sm:mb-5 transition-all duration-500 ease-out ${categoriesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                  style={{ transitionDelay: `${200 + i * 100}ms` }}
+                  className={`relative aspect-[3/4] overflow-hidden mb-6 sm:mb-8 transition-all duration-700 ease-out ${categoriesSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${200 + i * 120}ms` }}
                 >
-                  <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                <div className="text-center px-2">
-                  <h3 className="text-base sm:text-lg md:text-xl text-ink-black dark:text-moon-white mb-2 group-hover:text-paper-brown dark:group-hover:text-gold-sand transition-colors duration-300" style={{ fontFamily: "'Noto Serif SC', serif" }}>{cat.name}</h3>
-                  <p className="text-warm-gray dark:text-white/50 text-xs sm:text-sm hidden sm:block">{cat.description}</p>
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110"
+                  />
+                  {/* 多层渐变遮罩 - 优雅的由深至浅 */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink-black/70 via-ink-black/15 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-ink-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* 分类名称 - 叠加在图片底部 */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl text-moon-white mb-2 sm:mb-3 group-hover:text-gold-sand transition-colors duration-500" style={{ fontFamily: "'Noto Serif SC', serif" }}>{cat.name}</h3>
+                    <p className="text-moon-white/70 text-sm sm:text-base opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-2 group-hover:translate-y-0">{cat.description}</p>
+                  </div>
+                  {/* 精致边框 */}
+                  <div className="absolute inset-0 border border-moon-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </Link>
             ))}
@@ -373,39 +390,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== 精选商品 - 全宽铺满 ===== */}
+      {/* ===== 精选商品 - 宽幅沉浸式商品展示 ===== */}
       <section
         ref={productsSection.ref}
-        className={`w-full py-24 sm:py-28 md:py-32 lg:py-40 bg-ivory/40 dark:bg-ink-black transition-all duration-700 ease-out ${productsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+        className={`w-full py-28 sm:py-32 md:py-40 lg:py-48 xl:py-56 bg-ivory/50 dark:bg-ink-black transition-all duration-700 ease-out ${productsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       >
-        <div className="w-full max-w-[1600px] mx-auto px-8 sm:px-12 md:px-16 lg:px-20">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-16 sm:mb-20 md:mb-24">
+        <div className="w-full px-10 sm:px-14 md:px-16 lg:px-20 xl:px-24">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-20 sm:mb-24 md:mb-28 lg:mb-32">
             <div className="mb-6 sm:mb-0">
-              <p className="text-paper-brown dark:text-gold-sand text-xs sm:text-sm tracking-[0.3em] uppercase mb-4 sm:mb-5">Featured</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-ink-black dark:text-moon-white" style={{ fontFamily: "'Noto Serif SC', serif" }}>精选商品</h2>
+              <p className="text-paper-brown dark:text-gold-sand text-xs sm:text-sm tracking-[0.4em] uppercase mb-5 sm:mb-6">Featured</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-ink-black dark:text-moon-white" style={{ fontFamily: "'Noto Serif SC', serif" }}>精选商品</h2>
             </div>
             <Link to="/product" className="text-paper-brown hover:text-gold-sand transition-colors duration-300 inline-flex items-center gap-3 group text-sm sm:text-base sm:self-end">
               查看全部<span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16">
             {featuredProducts.map((prod, i) => (
               <Link key={prod.id} to={`/product/${prod.id}`} className="group block">
                 <div
-                  className={`transition-all duration-500 ease-out ${productsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                  style={{ transitionDelay: `${i * 100}ms` }}
+                  className={`transition-all duration-700 ease-out ${productsSection.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: `${i * 120}ms` }}
                 >
-                  <Card hover padding="none" className="overflow-hidden bg-moon-white dark:bg-ink-black">
-                    <div className="relative aspect-square overflow-hidden bg-light-gray dark:bg-white/10">
-                      <img src={prod.image} alt={prod.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-                      <span className="absolute top-3 left-3 sm:top-4 sm:left-4 px-3 py-1.5 bg-moon-white/95 dark:bg-ink-black/90 text-ink-black dark:text-moon-white text-xs">{prod.category}</span>
+                  {/* 精致卡片容器 */}
+                  <div className="relative bg-moon-white dark:bg-ink-black overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-ink-black/20 dark:group-hover:shadow-moon-white/10">
+                    {/* 图片区域 - 4:5竖版比例 */}
+                    <div className="relative aspect-[4/5] overflow-hidden bg-light-gray dark:bg-white/5">
+                      <img
+                        src={prod.image}
+                        alt={prod.name}
+                        className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
+                      />
+                      {/* 多层渐变遮罩 */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
                     </div>
-                    <div className="p-4 sm:p-5 md:p-6">
-                      <h3 className="text-sm sm:text-base md:text-lg text-ink-black dark:text-moon-white mb-2 sm:mb-3 group-hover:text-paper-brown dark:group-hover:text-gold-sand transition-colors duration-300 line-clamp-1" style={{ fontFamily: "'Noto Serif SC', serif" }}>{prod.name}</h3>
-                      <p className="text-gold-sand font-medium text-base sm:text-lg">{formatPrice(prod.price)}</p>
+                    {/* 信息区域 */}
+                    <div className="p-6 sm:p-8 lg:p-10">
+                      <h3 className="text-lg sm:text-xl md:text-2xl text-ink-black dark:text-moon-white mb-3 sm:mb-4 group-hover:text-paper-brown dark:group-hover:text-gold-sand transition-colors duration-500 line-clamp-1" style={{ fontFamily: "'Noto Serif SC', serif" }}>{prod.name}</h3>
+                      <p className="text-gold-sand font-medium text-xl sm:text-2xl md:text-3xl">{formatPrice(prod.price)}</p>
                     </div>
-                  </Card>
+                    {/* 底部精致线条 */}
+                    <div className="h-px w-full bg-gradient-to-r from-transparent via-gold-sand/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
                 </div>
               </Link>
             ))}

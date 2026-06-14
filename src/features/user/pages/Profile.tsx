@@ -1,12 +1,26 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserStore } from '@stores/userStore';
+import { userApi } from '@api/user';
 
 /**
  * Profile Page - 用户中心
  * PlanE 高奢极简风格，与整体网站风格统一
  */
 export default function Profile() {
-  const { userInfo, isLoggedIn } = useUserStore();
+  const { user: userInfo, isLoggedIn, logout } = useUserStore();
+  const [membership, setMembership] = useState<{ membership_level: string; points: number; benefits: string[]; points_to_next_level: number } | null>(null);
+  const [couponCount, setCouponCount] = useState(0);
+  const [orderCounts, setOrderCounts] = useState({ pending_payment: 0, pending_ship: 0, pending_receipt: 0, pending_review: 0 });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      userApi.getMembership().then(res => {
+        setMembership({ ...res.user, benefits: res.benefits, points_to_next_level: res.points_to_next_level });
+        setCouponCount(0); // 优惠券接口暂无
+      }).catch(() => {});
+    }
+  }, [isLoggedIn]);
 
   const menuItems = [
     { label: '我的订单', path: '/order', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
@@ -90,21 +104,21 @@ export default function Profile() {
             </div>
 
             {/* 会员等级 */}
-            {isLoggedIn && (
+            {isLoggedIn && membership && (
               <div className="flex items-center gap-6 lg:gap-8">
                 <div className="text-center">
-                  <p className="text-[#C9A962] text-2xl sm:text-3xl font-medium" style={{ fontFamily: "'Noto Serif SC', serif" }}>VIP</p>
+                  <p className="text-[#C9A962] text-2xl sm:text-3xl font-medium" style={{ fontFamily: "'Noto Serif SC', serif" }}>{membership.membership_level.toUpperCase()}</p>
                   <p className="text-moon-white/40 text-xs tracking-[0.2em] mt-1">会员等级</p>
                 </div>
                 <div className="w-px h-12 bg-moon-white/20" />
                 <div className="text-center">
-                  <p className="text-moon-white text-2xl sm:text-3xl font-medium">0</p>
-                  <p className="text-moon-white/40 text-xs tracking-[0.2em] mt-1">优惠券</p>
+                  <p className="text-moon-white text-2xl sm:text-3xl font-medium">{membership.points}</p>
+                  <p className="text-moon-white/40 text-xs tracking-[0.2em] mt-1">积分</p>
                 </div>
                 <div className="w-px h-12 bg-moon-white/20" />
                 <div className="text-center">
-                  <p className="text-moon-white text-2xl sm:text-3xl font-medium">0</p>
-                  <p className="text-moon-white/40 text-xs tracking-[0.2em] mt-1">收藏</p>
+                  <p className="text-moon-white text-2xl sm:text-3xl font-medium">{couponCount}</p>
+                  <p className="text-moon-white/40 text-xs tracking-[0.2em] mt-1">优惠券</p>
                 </div>
               </div>
             )}
@@ -176,6 +190,7 @@ export default function Profile() {
         {isLoggedIn && (
           <div className="mt-12 pt-8 border-t border-light-gray/30">
             <button
+              onClick={() => logout()}
               className="w-full sm:w-auto px-8 py-3 text-warm-gray hover:text-ink-black border border-light-gray/30 hover:border-ink-black/20 transition-all duration-300 text-sm tracking-[0.1em]"
             >
               安全退出

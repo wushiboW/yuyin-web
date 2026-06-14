@@ -17,7 +17,6 @@ export default defineConfig(({ mode }) => {
         '@hooks': path.resolve(__dirname, './src/hooks'),
         '@styles': path.resolve(__dirname, './src/styles'),
         '@contexts': path.resolve(__dirname, './src/contexts'),
-        '@shared': path.resolve(__dirname, '../shared'),
       },
     },
     server: {
@@ -27,14 +26,18 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: {
-            'router': ['react-router-dom'],
-            'state': ['zustand'],
-            'query': ['@tanstack/react-query'],
-            'product': ['./src/features/product'],
-            'cart': ['./src/features/cart'],
-            'order': ['./src/features/order'],
-            'user': ['./src/features/user'],
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react-router')) return 'router';
+              if (id.includes('@tanstack/react-query')) return 'query';
+              if (id.includes('zustand')) return 'state';
+              if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('scheduler')) return 'react-vendor';
+              return 'vendor';
+            }
+            if (id.includes('/src/features/')) {
+              const m = id.match(/\/features\/([^/]+)\/pages\/([^/.]+)/);
+              if (m) return `${m[1]}-${m[2]}`;
+            }
           },
         },
       },
