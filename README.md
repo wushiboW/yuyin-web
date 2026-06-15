@@ -2,7 +2,7 @@
 
 <video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
 
-*从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 5.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
+*从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 3.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
 
 ![屿音品牌首页](https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/banner.png)
 
@@ -41,7 +41,7 @@
 
 <video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
 
-*从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 5.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
+*从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 3.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
 
 ---
 
