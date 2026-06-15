@@ -33,9 +33,9 @@
 
 ### 登录页 · 沉浸式动态体验
 
-<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-demo.webm" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-demo.mp4" controls width="100%"></video>
 
-*登录页背景视频双素材随机切换(20s / 5.8MB),从晨曦微露到暮色苍茫,完整呈现山峦在不同时辰下的光影变幻。*
+*登录页背景视频双素材随机切换(20s / 1.0MB),从晨曦微露到暮色苍茫,完整呈现山峦在不同时辰下的光影变幻。*
 
 ### 首页 · 三段式品牌叙事
 
