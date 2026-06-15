@@ -1,8 +1,10 @@
 # 屿音电商 · 官网 Web 端 (Yuyin E-Commerce Web)
 
-<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls preload="metadata" width="100%"></video>
 
 *从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 3.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
+
+> 📥 [下载完整视频 (MP4 · 3.1MB)](https://github.com/wushiboW/yuyin-web/raw/main/public/media/home-demo.mp4)
 
 ![屿音品牌首页](https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/banner.png)
 
@@ -33,15 +35,19 @@
 
 ### 登录页 · 沉浸式动态体验
 
-<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-demo.mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-demo.mp4" controls preload="metadata" width="100%"></video>
 
 *登录页背景视频双素材随机切换(20s / 1.0MB),从晨曦微露到暮色苍茫,完整呈现山峦在不同时辰下的光影变幻。*
 
+> 📥 [下载完整视频 (MP4 · 1.0MB)](https://github.com/wushiboW/yuyin-web/raw/main/public/media/login-demo.mp4)
+
 ### 首页 · 三段式品牌叙事
 
-<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls preload="metadata" width="100%"></video>
 
 *从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 3.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
+
+> 📥 [下载完整视频 (MP4 · 3.1MB)](https://github.com/wushiboW/yuyin-web/raw/main/public/media/home-demo.mp4)
 
 ---
 
