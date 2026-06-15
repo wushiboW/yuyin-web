@@ -1,6 +1,10 @@
 # 屿音电商 · 官网 Web 端 (Yuyin E-Commerce Web)
 
-![屿音品牌首页](https://raw.githubusercontent.com/wushiboW/Yuyin-E-commerce-platform-fe/main/front-end/c-unified-frontend/public/banner.png)
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
+
+*从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 5.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
+
+![屿音品牌首页](https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/banner.png)
 
 > **传承东方美学,融合现代设计,为忙碌造从容,雅致的生活空间。**
 
@@ -23,19 +27,19 @@
 
 ### 登录页 · 水墨山峦的静谧开场
 
-![屿音登录页](https://raw.githubusercontent.com/wushiboW/Yuyin-E-commerce-platform-fe/main/front-end/c-unified-frontend/public/media/login-page.png)
+![屿音登录页](https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-page.png)
 
 *水墨山峦徐徐铺展,中央金色「屿音」二字若隐若现,右侧「欢迎回来」登录面板简约克制。山、水、人,东方美学的三重视角,在登录这一仪式性的瞬间徐徐展开。*
 
 ### 登录页 · 沉浸式动态体验
 
-<video src="https://raw.githubusercontent.com/wushiboW/Yuyin-E-commerce-platform-fe/main/front-end/c-unified-frontend/public/media/login-demo.webm" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/login-demo.webm" controls width="100%"></video>
 
 *登录页背景视频双素材随机切换(20s / 5.8MB),从晨曦微露到暮色苍茫,完整呈现山峦在不同时辰下的光影变幻。*
 
 ### 首页 · 三段式品牌叙事
 
-<video src="https://raw.githubusercontent.com/wushiboW/Yuyin-E-commerce-platform-fe/main/front-end/c-unified-frontend/public/media/home-demo.mp4" controls width="100%"></video>
+<video src="https://raw.githubusercontent.com/wushiboW/yuyin-web/main/public/media/home-demo.mp4" controls width="100%"></video>
 
 *从「高奢极简·东方哲学」到「雅致生活·从容自在」到「简约即丰盈」,三段式品牌内容滚动呈现(52s / 5.1MB)。每一屏都是一次视觉留白,每一次切换都是一种心境过渡。*
 
